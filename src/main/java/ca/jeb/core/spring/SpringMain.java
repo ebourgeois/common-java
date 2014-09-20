@@ -7,7 +7,6 @@ import java.security.PrivilegedAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
@@ -18,40 +17,25 @@ import org.springframework.context.support.GenericApplicationContext;
  */
 public final class SpringMain
 {
-
   private static final Logger       LOGGER = LoggerFactory.getLogger(SpringMain.class);
 
   private GenericApplicationContext context;
 
   private String[]                  configLocations;
 
-  private BeanDefinitionReader createBeanDefinitionReader(BeanDefinitionRegistry registry)
-  {
-    XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(registry);
-    return reader;
-  }
-
-  public void run(String... args)
+  public static void main(String[] args)
   {
     if (args == null || args.length < 1)
     {
-      throw new IllegalArgumentException("Must pass config location");
+      throw new IllegalArgumentException("Please provide aust pass config location");
     }
 
-    this.configLocations = args;
-    run();
-  }
+    final SpringMain sm = new SpringMain();
+    sm.setConfigLocations(args);
 
-  /**
-   * Creates a new {@link ApplicationContext} if none exists, configures it with the given configuration files and
-   * refreshes the {@link ApplicationContext}.
-   */
-  public void run()
-  {
-    /* Application is really starting here, ignore previous AccessControlContext context */
     if (System.getSecurityManager() == null)
     {
-      runInternal();
+      sm.runInternal();
     }
     else
     {
@@ -59,8 +43,8 @@ public final class SpringMain
       {
         public Void run()
         {
-          runInternal();
-          return null; // nothing to return
+          sm.runInternal();
+          return null;
         }
       });
     }
@@ -75,21 +59,24 @@ public final class SpringMain
     }
 
     // Finally load app config and start...
-    BeanDefinitionReader xmlReader = createBeanDefinitionReader(this.context);
+    BeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(this.context);
     AnnotatedBeanDefinitionReader classReader = new AnnotatedBeanDefinitionReader(context);
 
-    for (String location : configLocations)
+    for (String configLocation : configLocations)
     {
-      if (!tryRegisterClass(classReader, location))
-        xmlReader.loadBeanDefinitions(location);
+      if (!registerClass(classReader, configLocation))
+      {
+        xmlReader.loadBeanDefinitions(configLocation);
+      }
     }
 
     boolean started = false;
     try
     {
       this.context.registerShutdownHook();
-      this.context.refresh(); // refresh context and start SmartLifecycleBean
-      LOGGER.info("SpringMain startup complete");
+      // refresh context and start SmartLifecycleBean
+      this.context.refresh();
+      LOGGER.info("SpringMain has completed startup!");
       started = true;
     }
     catch (Throwable t)
@@ -99,7 +86,7 @@ public final class SpringMain
       {
         throw (RuntimeException)t;
       }
-      throw new RuntimeException("SpringMain start up failed", t);
+      throw new RuntimeException("SpringMain failed startup: " + t, t);
     }
     finally
     {
@@ -111,20 +98,21 @@ public final class SpringMain
         }
         catch (Throwable e)
         {
-          // An exception is pending
           LOGGER.info("Ignoring exception during application close due to exception at startup", e);
         }
       }
     }
   }
 
-  private boolean tryRegisterClass(AnnotatedBeanDefinitionReader classReader, String classname)
+  private boolean registerClass(AnnotatedBeanDefinitionReader classReader, String className)
   {
-    if (!checkName(classname))
+    if (!(className.indexOf('/') == -1 && className.indexOf(':') == -1))
+    {
       return false;
+    }
     try
     {
-      Class<?> configClass = getClass().getClassLoader().loadClass(classname);
+      Class<?> configClass = getClass().getClassLoader().loadClass(className);
       classReader.register(configClass);
       return true;
     }
@@ -132,34 +120,6 @@ public final class SpringMain
     {
       return false;
     }
-  }
-
-  /** simple check to detect common cases */
-  private boolean checkName(String className)
-  {
-    return className.indexOf('/') == -1 && className.indexOf(':') == -1;
-  }
-
-  public static void main(String[] args)
-  {
-    new SpringMain().run(args);
-  }
-
-  /**
-   * @return the context
-   */
-  public GenericApplicationContext getContext()
-  {
-    return this.context;
-  }
-
-  /**
-   * @param context
-   *          the context to set
-   */
-  public void setContext(GenericApplicationContext context)
-  {
-    this.context = context;
   }
 
   /**
