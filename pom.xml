@@ -3,18 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ca.jeb</groupId>
-  <artifactId>jeb-common</artifactId>
+  <artifactId>common-java</artifactId>
   <version>2014.09.21</version>
   <name>jeb.ca Common Java Code</name>
   <description>Common Java Code</description>
   <inceptionYear>2014</inceptionYear>
   <developers>
-        <developer>
-			<email>erick@jeb.ca</email>
-			<name>Erick Bourgeois</name>
-			<url>https://github.com/ebourgeois</url>
-			<id>ebourgeois</id>
-        </developer>
+	<developer>
+	    <id>ebourgeois</id>
+		<email>erick@jeb.ca</email>
+		<name>Erick Bourgeois</name>
+		<url>https://github.com/ebourgeois</url>
+	</developer>
   </developers>
   <properties>
     <github.global.server>github</github.global.server>
@@ -110,7 +110,7 @@
                 <branch>refs/heads/mvn-repo</branch>
                 <merge>true</merge>
                 <includes><include>**/*</include></includes>
-                <repositoryName>jeb-common</repositoryName>
+                <repositoryName>common-java</repositoryName>
                 <repositoryOwner>ebourgeois</repositoryOwner> 
             </configuration>
             <executions>
