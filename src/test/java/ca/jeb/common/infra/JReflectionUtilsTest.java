@@ -1,37 +1,48 @@
-// Copyright (c) 2014 Morgan Stanley & Co. Incorporated, All Rights Reserved
+// Copyright (c) 2014 Erick Bourgeois. Incorporated, All Rights Reserved
 
-package ca.jeb.core.infra;
+package ca.jeb.common.infra;
 
 import static org.junit.Assert.fail;
 
-import org.junit.BeforeClass;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  */
 public class JReflectionUtilsTest
 {
-  final static int  FOO       = 1;
+  final static int  TEN       = 10;
+  final static int  TWENTY    = 20;
 
   private TestClass testClass = new TestClass();
 
   /**
    * @throws java.lang.Exception
    */
-  @BeforeClass
+  @Before
   public void setUpBeforeClass() throws Exception
   {
-    testClass.setFoo(FOO);
+    testClass.setFoo(TEN);
   }
 
   /**
    * Test method for {@link ca.jeb.common.infra.JReflectionUtils#runGetter(java.lang.reflect.Field, java.lang.Object)}.
    */
   @Test
-  public void testRunGetter()
+  public void testRunGetter() throws NoSuchFieldException, SecurityException, IllegalAccessException, IllegalArgumentException,
+          InvocationTargetException
   {
-    
-    fail("Not yet implemented");
+    final Field field = testClass.getClass().getDeclaredField("foo");
+    final Object value = JReflectionUtils.runGetter(testClass, field);
+    Assert.assertEquals("The expected value " + TEN + " is not equal to the result " + value, (int)value, TEN);
   }
 
   /**
@@ -41,7 +52,14 @@ public class JReflectionUtilsTest
   @Test
   public void testRunSetter()
   {
-    fail("Not yet implemented");
+    try
+    {
+      JReflectionUtils.runSetter(testClass, "setFoo", TEN, int.class);
+    }
+    catch (JException e)
+    {
+      fail("Could not run setter 'setFoo': " + e);
+    }
   }
 
   /**
@@ -50,7 +68,15 @@ public class JReflectionUtilsTest
   @Test
   public void testRunMethod()
   {
-    fail("Not yet implemented");
+    try
+    {
+      final Object value = JReflectionUtils.runMethod(testClass, "getFoo");
+      Assert.assertEquals("The expected value " + TEN + " is not equal to the result " + value, (int)value, TEN);
+    }
+    catch (JException e)
+    {
+      fail("Could not run getter 'getFoo': " + e);
+    }
   }
 
   /**
@@ -59,7 +85,9 @@ public class JReflectionUtilsTest
   @Test
   public void testGetAllFields()
   {
-    fail("Not yet implemented");
+    final List<Field> fields = JReflectionUtils.getAllFields(new ArrayList<Field>(), testClass.getClass());
+    final Field field = fields.get(0);
+    Assert.assertTrue("Field returned from getAllFields is not 'foo'", field.getName().equals("foo"));
   }
 
   /**
@@ -68,7 +96,9 @@ public class JReflectionUtilsTest
   @Test
   public void testGetAllMethods()
   {
-    fail("Not yet implemented");
+    final List<Method> methods = JReflectionUtils.getAllMethods(new ArrayList<Method>(), testClass.getClass());
+    final Method method = methods.get(0);
+    Assert.assertTrue("Method returned from getAllMethods is not 'setFoo'", method.getName().equals("setFoo"));
   }
 
   /**
@@ -77,19 +107,11 @@ public class JReflectionUtilsTest
   @Test
   public void testGetMethodByName()
   {
-    fail("Not yet implemented");
+    final Method method = JReflectionUtils.getMethodByName(testClass.getClass(), "getFoo");
+    Assert.assertTrue("Method returned from getMethodByName is not 'getFoo'", method.getName().equals("getFoo"));
   }
 
-  /**
-   * Test method for {@link ca.jeb.common.infra.JReflectionUtils#stringToType(java.lang.String, java.lang.Class, java.lang.String)}.
-   */
-  @Test
-  public void testStringToType()
-  {
-    fail("Not yet implemented");
-  }
-
-  public class TestClass
+  private class TestClass
   {
     private int foo;
 

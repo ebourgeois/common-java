@@ -1,6 +1,6 @@
 // Copyright (c) 2014 Morgan Stanley & Co. Incorporated, All Rights Reserved
 
-package ca.jeb.core.infra;
+package ca.jeb.common.infra;
 
 import org.junit.Test;
 

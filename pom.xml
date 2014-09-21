@@ -2,10 +2,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ca.jeb.common</groupId>
+  <groupId>ca.jeb</groupId>
   <artifactId>jeb-common</artifactId>
-  <version>2014.09.19</version>
-  <name>jeb.ca Common Code</name>
+  <version>2014.09.21</version>
+  <name>jeb.ca Common Java Code</name>
   <description>Common Java Code</description>
   <inceptionYear>2014</inceptionYear>
   <developers>
@@ -16,23 +16,18 @@
 			<id>ebourgeois</id>
         </developer>
   </developers>
-  <scm>
-		<url>https://github.com/ebourgeois/mvn-repo</url>
-		<connection>scm:git:git://github.com/ebourgeois/mvn-repo.git</connection>
-		<developerConnection>scm:git:git@github.com:ebourgeois/mvn-repo.git</developerConnection>
-  </scm>
   <properties>
     <github.global.server>github</github.global.server>
     <maven.compiler.target>1.7</maven.compiler.target>
     <maven.compiler.source>1.7</maven.compiler.source>
   </properties>
-  <!-- <distributionManagement>
+  <distributionManagement>
     <repository>
         <id>internal.repo</id>
         <name>Temporary Staging Repository</name>
         <url>file://${project.build.directory}/mvn-repo</url>
     </repository>
-  </distributionManagement>-->
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -105,36 +100,17 @@
             </executions>
        </plugin>
 	   <plugin>
-			<groupId>com.github.github</groupId>
-			<artifactId>downloads-maven-plugin</artifactId>
-			<version>0.6</version>
-			<configuration>
-				<description>Official ${project.name} build of the ${project.version} release</description>
-				<override>true</override>
-				<includeAttached>true</includeAttached>
-				<server>github</server>
-			</configuration>
-			<executions>
-				<execution>
-					<goals>
-						<goal>upload</goal>
-					</goals>
-					<phase>deploy</phase>
-				</execution>
-			</executions>
-		</plugin>
-	   <!-- <plugin>
             <groupId>com.github.github</groupId>
             <artifactId>site-maven-plugin</artifactId>
-            <version>0.9</version>
+            <version>0.10</version>
             <configuration>
                 <message>Maven artifacts for ${project.version}</message>
                 <noJekyll>true</noJekyll>
-                <dryRun>true</dryRun>
                 <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
                 <branch>refs/heads/mvn-repo</branch>
+                <merge>true</merge>
                 <includes><include>**/*</include></includes>
-                <repositoryName>mvn-repo</repositoryName>
+                <repositoryName>jeb-common</repositoryName>
                 <repositoryOwner>ebourgeois</repositoryOwner> 
             </configuration>
             <executions>
@@ -145,7 +121,7 @@
                 <phase>deploy</phase>
               </execution>
             </executions>
-        </plugin> -->
+        </plugin>
 		<plugin>
 			<artifactId>maven-deploy-plugin</artifactId>
 			<version>2.8.1</version>

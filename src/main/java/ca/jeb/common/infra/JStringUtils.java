@@ -124,11 +124,11 @@ public final class JStringUtils
   }
 
   /**
-   * Pad string with a character at beginning or end of text.
+   * Pad string with a character at end of text.
    * 
    * @param rawString
-   * @param length
-   * @param padChar
+   * @param length - total length of the desired string
+   * @param padChar - character to pad at the end of the text.
    * @return the padded String
    */
   public static String pad(String rawString, int length, char padChar)

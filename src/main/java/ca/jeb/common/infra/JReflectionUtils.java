@@ -18,14 +18,14 @@ public final class JReflectionUtils
 {
   private static final Map<String, Map<String, Method>> METHOD_FIELD_MAP_CACHE = new ConcurrentHashMap<>();
 
-  private static final Map<String, List<Field>>         FIELDS_MAP_CACHE       = new ConcurrentHashMap<>();
-
   private JReflectionUtils()
   {
     // empty utilit class
   }
 
   /**
+   * Execute a "getter" on the provided <i>object</i> for the given <i>field</i>.
+   * 
    * @param field
    * @param object
    * @return Object
@@ -33,7 +33,7 @@ public final class JReflectionUtils
    * @throws IllegalArgumentException
    * @throws InvocationTargetException
    */
-  public static Object runGetter(Field field, Object object) throws IllegalAccessException, IllegalArgumentException,
+  public static Object runGetter(Object object, Field field) throws IllegalAccessException, IllegalArgumentException,
           InvocationTargetException
   {
     final Class<?> clazz = object.getClass();
@@ -86,6 +86,8 @@ public final class JReflectionUtils
   }
 
   /**
+   * Execute a "setter" on the provided <i>object</i> for the given <i>method</i> name.
+   * 
    * @param object
    * @param method
    * @param arg
@@ -144,20 +146,10 @@ public final class JReflectionUtils
    */
   public static List<Field> getAllFields(List<Field> fields, Class<?> clazz)
   {
-    /**
-     * List<Field> fieldList = FIELDS_MAP_CACHE.get(clazz.getCanonicalName());
-     * if (fieldList != null)
-     * {
-     * return fieldList;
-     * }
-     */
-
     for (Field field : clazz.getDeclaredFields())
     {
       fields.add(field);
     }
-
-    // FIELDS_MAP_CACHE.put(clazz.getCanonicalName(), fields);
 
     if (clazz.getSuperclass() != null)
     {
@@ -190,6 +182,8 @@ public final class JReflectionUtils
   }
 
   /**
+   * Retrieve a Method object with the provided <i>name</i> on the class, <i>clazz</i>.
+   * 
    * @param clazz
    * @param name
    * @return Method
@@ -206,27 +200,5 @@ public final class JReflectionUtils
       }
     }
     return null;
-  }
-
-  /**
-   * @param methodName
-   * @param clazz
-   * @param value
-   * @return stringToType as Object
-   * @throws NoSuchMethodException
-   * @throws SecurityException
-   * @throws IllegalAccessException
-   * @throws IllegalArgumentException
-   * @throws InvocationTargetException
-   */
-  public static Object stringToType(String methodName, Class<?> clazz, String value) throws NoSuchMethodException, SecurityException,
-          IllegalAccessException, IllegalArgumentException, InvocationTargetException
-  {
-    if (methodName == null || methodName.equals(JStringUtils.EMPTY))
-    {
-      methodName = "valueOf";
-    }
-    final Method method = clazz.getMethod(methodName, String.class);
-    return method.invoke(null, value);
   }
 }

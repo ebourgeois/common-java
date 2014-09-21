@@ -1,3 +1,4 @@
+// Copyright (c) 2014 Erick Bourgeois, All Rights Reserved
 
 package ca.jeb.common.spring;
 
@@ -27,7 +28,7 @@ public final class SpringMain
   {
     if (args == null || args.length < 1)
     {
-      throw new IllegalArgumentException("Please provide aust pass config location");
+      throw new IllegalArgumentException("Please provide a config location");
     }
 
     final SpringMain sm = new SpringMain();
