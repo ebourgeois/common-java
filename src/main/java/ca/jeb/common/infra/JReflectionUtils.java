@@ -1,6 +1,6 @@
 // Copyright (c) 2014 Erick Bourgeois, All Rights Reserved
 
-package ca.jeb.core.infra;
+package ca.jeb.common.infra;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

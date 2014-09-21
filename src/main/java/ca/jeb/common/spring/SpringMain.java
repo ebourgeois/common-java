@@ -1,5 +1,5 @@
 
-package ca.jeb.core.spring;
+package ca.jeb.common.spring;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
