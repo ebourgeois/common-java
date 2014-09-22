@@ -1,14 +1,16 @@
-jeb-common
-==========
+common-java
+===========
 
-This project contains some common Java classes that are used or useful to other
+This project contains some common Java classes that are used by other
 jeb.ca projects.
+
+This project can also be used independently, as it has some useful utility classes.
 
 To use this in your project, add the following to your Maven `pom.xml` file:
 
 1. You will need to add our Maven repository:
 
-```
+```xml
 <repositories>
   <repository>
        <id>jeb-common-mvn-repo</id>
@@ -23,7 +25,7 @@ To use this in your project, add the following to your Maven `pom.xml` file:
 
 2. Now add our artifact as a dependency:
 
-```
+```xml
 <dependency>
   <groupId>ca.jeb</groupId>
   <artifactId>jeb-common</artifactId>

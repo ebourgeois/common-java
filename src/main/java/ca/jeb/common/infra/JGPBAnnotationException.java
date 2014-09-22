@@ -3,9 +3,11 @@
 package ca.jeb.common.infra;
 
 /**
- * Common exception for jeb Java exceptions.
+ * Exception when raised during the serialization of Protobuf attributes.
+ * 
+ * @see ca.jeb.common.gpb.ProtoBufSerializer
  */
-public class JGPBAnnotationException extends Exception
+public class JGPBAnnotationException extends JException
 {
   /**
    * @param e - Exception
@@ -13,5 +15,13 @@ public class JGPBAnnotationException extends Exception
   public JGPBAnnotationException(Exception e)
   {
     super(e);
+  }
+
+  /**
+   * @param string
+   */
+  public JGPBAnnotationException(String string)
+  {
+    super(string);
   }
 }
