@@ -85,7 +85,7 @@ public class ProtobufSerialization<G extends GeneratedMessage, P extends Object>
         }
 
         // 2. Call recursively if this is a ProtobufEntity
-        serializeProtobufEntity(value);
+        value = serializeProtobufEntity(value);
 
         String setter = "set" + JStringUtils.upperCaseFirst(fieldName);
         if (value instanceof Collection)
