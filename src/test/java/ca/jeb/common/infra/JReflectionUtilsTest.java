@@ -97,8 +97,15 @@ public class JReflectionUtilsTest
   public void testGetAllMethods()
   {
     final List<Method> methods = JReflectionUtils.getAllMethods(new ArrayList<Method>(), testClass.getClass());
-    final Method method = methods.get(0);
-    Assert.assertTrue("Method returned from getAllMethods is not 'setFoo'", method.getName().equals("setFoo"));
+    boolean setFooExists = false;
+    for (final Method method : methods)
+    {
+      if (method.getName().equals("setFoo"))
+      {
+        setFooExists = true;
+      }
+    }
+    Assert.assertTrue("Method returned from getAllMethods is not 'setFoo'", setFooExists);
   }
 
   /**
