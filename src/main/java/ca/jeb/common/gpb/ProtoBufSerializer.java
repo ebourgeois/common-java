@@ -64,7 +64,7 @@ public class ProtoBufSerializer<G extends GeneratedMessage> implements IProtoBuf
    * @return G - Generic extends GeneratedMessage
    * @throws CMSCoreException
    */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public G toProtoBuf() throws JException
   {
     try
@@ -155,9 +155,6 @@ public class ProtoBufSerializer<G extends GeneratedMessage> implements IProtoBuf
         // Need to convert the argument class from non-primitives to primitives, as ProtoBuf uses these.
         gpbClass = getGBPClass(gpbClass, currentClass);
 
-        // LOGGER.debug("gpbClass: " + gpbClass);
-        // LOGGER.debug("value: " + value);
-
         final Method gpbMethod = protoObjBuilder.getClass().getDeclaredMethod(setter, gpbClass);
         gpbMethod.invoke(protoObjBuilder, value);
       }
@@ -175,7 +172,7 @@ public class ProtoBufSerializer<G extends GeneratedMessage> implements IProtoBuf
    * @param protoBuf - G extends GeneratedMessage
    * @throws CMSCoreException
    */
-  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void fromProtoBuf(G protoBuf) throws CMSCoreException
   {
     final Class<? extends Object> toClazz = this.getClass();
