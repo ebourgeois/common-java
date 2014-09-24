@@ -4,9 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ca.jeb</groupId>
   <artifactId>common-java</artifactId>
-  <version>2014.09.23</version>
-  <name>jeb.ca Common Java Code</name>
-  <description>Common Java Code</description>
+  <version>2014.09.24</version>
+  <name>Common Java Code from jeb.ca</name>
+  <description>Common Java Code is used by other jeb.ca projects and can be used seperately</description>
   <inceptionYear>2014</inceptionYear>
   <developers>
     <developer>
@@ -96,8 +96,8 @@
                    <showDeprecation>true</showDeprecation>
                    <showWarnings>true</showWarnings>
                    <compilerArguments>
-                      <source>${maven.compiler.target}</source>
-                      <!-- <target>${maven.compiler.source}</target> -->
+                      <source>${maven.compiler.source}</source>
+                      <target>${maven.compiler.target}</target>
                    </compilerArguments>
                 </configuration>
              </execution>
