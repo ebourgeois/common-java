@@ -29,7 +29,7 @@ To use this in your project, add the following to your Maven `pom.xml` file:
 <dependency>
   <groupId>ca.jeb</groupId>
   <artifactId>jeb-common</artifactId>
-  <version>2014.09.21</version>
+  <version>2014.09.24</version>
 </dependency>
 ```
 
