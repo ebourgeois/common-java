@@ -99,7 +99,7 @@ public final class SpringMain
         }
         catch (Throwable e)
         {
-          LOGGER.info("Ignoring exception during application close due to exception at startup", e);
+          LOGGER.error("Ignoring exception during application close due to exception at startup: " + e, e);
         }
       }
     }
