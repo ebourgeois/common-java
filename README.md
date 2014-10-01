@@ -13,8 +13,8 @@ To use this in your project, add the following to your Maven `pom.xml` file:
 ```xml
 <repositories>
   <repository>
-       <id>jeb-common-mvn-repo</id>
-       <url>https://raw.github.com/ebourgeois/jeb-common/mvn-repo/</url>
+       <id>common-java-mvn-repo</id>
+       <url>https://raw.github.com/ebourgeois/common-java/mvn-repo/</url>
        <snapshots>
            <enabled>true</enabled>
            <updatePolicy>always</updatePolicy>
@@ -28,9 +28,9 @@ To use this in your project, add the following to your Maven `pom.xml` file:
 ```xml
 <dependency>
   <groupId>ca.jeb</groupId>
-  <artifactId>jeb-common</artifactId>
-  <version>2014.09.24</version>
+  <artifactId>common-java</artifactId>
+  <version>2014.10.01</version>
 </dependency>
 ```
 
-You can view all the available versions here: https://github.com/ebourgeois/jeb-common/tree/mvn-repo/ca/jeb/jeb-common
+You can view all the available versions here: https://github.com/ebourgeois/common-java/tree/mvn-repo/ca/jeb/jeb-common
