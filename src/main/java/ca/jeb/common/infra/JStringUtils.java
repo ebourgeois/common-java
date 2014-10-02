@@ -19,6 +19,8 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Common String Util methods.
+ * 
+ * @author <a href="mailto:erick@jeb.ca">Erick Bourgeois</a>
  */
 public final class JStringUtils
 {
@@ -237,9 +239,9 @@ public final class JStringUtils
    * For example, this could be used to join a list of strings by a comma,
    * i.e. ",".
    * 
-   * @param collection - Collection<?>
+   * @param collection - Collection&gt;?&lt;
    * @param separator - String
-   * @return String
+   * @return String - The joined string
    */
   public static String join(Collection<?> collection, String separator)
   {

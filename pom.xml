@@ -17,8 +17,18 @@
         <url>https://github.com/ebourgeois</url>
     </developer>
   </developers>
+  <licenses>
+    <license>
+        <name>GNU General Public License</name>
+        <url>https://gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+  <scm>
+      <connection>scm:git:git://github.com/ebourgeois/common-java.git</connection>
+      <developerConnection>scm:git:git@github.com:ebourgeois/common-java.git</developerConnection>
+      <url>http://github.com/ebourgeois/common-java/master</url>
+  </scm>
   <properties>
-    <github.global.server>github</github.global.server>
     <maven.compiler.target>1.7</maven.compiler.target>
     <maven.compiler.source>1.7</maven.compiler.source>
   </properties>
@@ -105,6 +115,20 @@
 	       <nexusUrl>https://oss.sonatype.org/</nexusUrl>
 	       <autoReleaseAfterClose>true</autoReleaseAfterClose>
 	     </configuration>
+	   </plugin>
+	   <plugin>
+	     <groupId>org.apache.maven.plugins</groupId>
+	     <artifactId>maven-gpg-plugin</artifactId>
+	     <version>1.5</version>
+	     <executions>
+	       <execution>
+	         <id>sign-artifacts</id>
+	         <phase>verify</phase>
+	         <goals>
+	           <goal>sign</goal>
+	         </goals>
+	       </execution>
+	     </executions>
 	   </plugin>
        <plugin>
 		  <groupId>org.apache.maven.plugins</groupId>

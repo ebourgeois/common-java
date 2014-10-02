@@ -6,17 +6,19 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.WeakHashMap;
 
 /**
  * Utility class for running some reflection methods.
  */
 public final class JReflectionUtils
 {
-  private static final Map<String, Map<String, Method>> METHOD_FIELD_MAP_CACHE = new ConcurrentHashMap<>();
+  private static final Map<String, Map<String, Method>> METHOD_FIELD_MAP_CACHE = Collections
+                                                                                       .synchronizedMap(new WeakHashMap<String, Map<String, Method>>());
 
   private JReflectionUtils()
   {
@@ -26,9 +28,9 @@ public final class JReflectionUtils
   /**
    * Execute a "getter" on the provided <i>object</i> for the given <i>field</i>.
    * 
-   * @param field
-   * @param object
-   * @return Object
+   * @param object - The object to run the "getter" on
+   * @param field - The Field to retrieve data from
+   * @return Object - The value of the "getter"
    * @throws IllegalAccessException
    * @throws IllegalArgumentException
    * @throws InvocationTargetException
@@ -88,11 +90,11 @@ public final class JReflectionUtils
   /**
    * Execute a "setter" on the provided <i>object</i> for the given <i>method</i> name.
    * 
-   * @param object
-   * @param method
-   * @param arg
-   * @param argClazz
-   * @return Object
+   * @param object - The Object to run the "setter" method
+   * @param method - The "setter" method name as a string
+   * @param arg - The Object argument to set
+   * @param argClazz - The Class type of the "setter" argument
+   * @return Object - Returns the object that is returned from this "setter", if any
    * @throws JException
    */
   public static Object runSetter(Object object, String method, Object arg, Class<? extends Object> argClazz) throws JException
@@ -117,10 +119,10 @@ public final class JReflectionUtils
    * Use reflection to run/execute the method represented by "method",
    * on the object {@code object}, given the list of {@code args}.
    * 
-   * @param object - Object
-   * @param method - String
-   * @param args - Object...
-   * @return Object
+   * @param object - The object to execute the method against
+   * @param method - The method name
+   * @param args - All the arguments for this method
+   * @return Object - The value of executing this method, if any
    * @throws JException
    */
   public static Object runMethod(Object object, String method, Object... args) throws JException

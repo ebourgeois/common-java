@@ -8,7 +8,7 @@ package ca.jeb.common.infra;
 public class JException extends Exception
 {
   /**
-   * @param e - Exception
+   * @param exception - {@link Exception}
    */
   public JException(Exception exception)
   {
@@ -16,7 +16,7 @@ public class JException extends Exception
   }
 
   /**
-   * @param string
+   * @param string - Exception string
    */
   public JException(String string)
   {
@@ -24,8 +24,8 @@ public class JException extends Exception
   }
 
   /**
-   * @param string
-   * @param e
+   * @param string - Exception string
+   * @param exception - {@link Exception}
    */
   public JException(String string, Exception exception)
   {

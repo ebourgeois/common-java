@@ -13,8 +13,10 @@ import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 
 /**
- * @see SmartLifecycle
- * @see PropertyPlaceholderConfigurer
+ * <i>Main</i> class that takes a Spring configuration file as
+ * an argument and creates a {@link GenericApplicationContext} from it.
+ * 
+ * @author <a href="mailto:erick@jeb.ca">Erick Bourgeois</a>
  */
 public final class SpringMain
 {
